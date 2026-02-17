@@ -1,0 +1,16 @@
+EJERCICIO 3 - CONCLUSIONES Y HALLAZGOS
+
+Resumen de resultados.
+- Configuración: 300 threads, ramp-up 20s, duración 300s
+- Throughput alcanzado: 20.83 TPS (>= 20 TPS) -> CUMPLE
+- Error %: 0% (< 3%) -> CUMPLE
+- p95: 389 ms (<= 1500 ms) -> CUMPLE
+
+Hallazgos.
+1) El endpoint de login respondió exitosamente con HTTP 201 (Created) y entregó un token en el cuerpo.
+2) Al aplicar la Duration Assertion (<=1500 ms), se observó que con configuraciones anteriores podían aparecer outliers >1500 ms.
+3) Con el ajuste de concurrencia y ramp-up, el comportamiento se estabilizó y no se presentaron errores ni violaciones del SLA.
+4) Con menos de 300 (Ej. 150-200) threads el Throughput estaba al rededor de 15 TPS.
+
+Conclusiones.
+- Bajo la configuración final, el servicio de login soporta una carga de al menos 20 TPS manteniendo la tasa de error por debajo del 3% y cumpliendo el tiempo máximo permitido (p95 < 1.5s).
